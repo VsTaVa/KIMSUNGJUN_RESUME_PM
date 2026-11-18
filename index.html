@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet">
+<style>
+  :root { --profile-w: 280px; }
+  body { margin: 0; }
+  a { text-decoration: none; color: #d9a441; }
+  a:hover { color: #f0c46a; }
+  ::selection { background: #d9a441; color: #0d0c0b; }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: #0d0c0b; }
+  ::-webkit-scrollbar-thumb { background: #3a352d; border-radius: 5px; border: 2px solid #0d0c0b; }
+  ::-webkit-scrollbar-thumb:hover { background: #d9a441; }
+  html { scrollbar-color: #3a352d #0d0c0b; scrollbar-width: thin; }
+  /* SELECTED WORK 호버 스포트라이트 — 한 카드에 올리면 나머지는 살짝 어둡게 */
+  #work figure, #otherwork figure { transition: opacity 0.35s ease; }
+  #work:has(figure:hover) figure:not(:hover),
+  #otherwork:has(figure:hover) figure:not(:hover) { opacity: 0.4; }
+  /* 아코디언 섹션 호버 스포트라이트 — 한 항목에 올리면 나머지는 살짝 어둡게 */
+  #experience > div > div, #training > div > div, #statement > div > div { transition: opacity 0.35s ease; }
+  #experience > div:has(> div:hover) > div:not(:hover),
+  #training > div:has(> div:hover) > div:not(:hover),
+  #statement > div:has(> div:hover) > div:not(:hover) { opacity: 0.4; }
+  /* 푸터 SNS 칩(전체) — 기본은 아웃라인, 호버 시에만 골드 */
+  #contact .sns-art { color: #e8e3da; border: 1px solid #2a2622; transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
+  #contact .sns-art:hover { background: #d9a441; color: #0d0c0b; border-color: #d9a441; }
+  /* 세로 화면(모바일) — 인라인 스타일을 덮어야 해서 !important */
+  @media (orientation: portrait) {
+    header nav { padding: 1.25rem !important; flex-wrap: wrap; gap: 0.75rem; }
+    header nav img { width: 120px !important; height: auto !important; }
+    header nav > div { gap: 1rem !important; flex-wrap: wrap; }
+    header > div, section, footer { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+    header > p { right: 1.25rem !important; left: 1.25rem; text-align: right; }
+    [style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+    article { padding: 2.5rem 1.25rem 2rem !important; }
+    #about > div > div:first-child { max-width: var(--profile-w); }
+    #experience > div > div > div > div:first-child, #training > div > div > div > div:first-child { flex-direction: column; gap: 0.2rem !important; }
+  }
+</style>
+</helmet>
+
+<div style="font-family:'Noto Sans KR',sans-serif;background:#0d0c0b;color:#e8e3da;font-size:14px;line-height:1.7;min-height:100vh;">
+
+  <!-- HERO -->
+  <header style="position:relative;height:100vh;min-height:640px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;">
+<video id="hero-video" src="assets/hero.mp4" autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(0.8) saturate(1.05);"></video>
+    <div style="position: absolute; inset: 0; background: {{ heroGradient }}; overflow: visible"></div>
+    <nav style="position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:1.75rem 3.5rem;">
+      
+
+      <img src="uploads/logo.png" alt="Kim Sung Jun logo" style="height: 109px; width: 193px"><div style="display:flex;gap:1.75rem;">
+        <a href="#about" style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#c9c2b4;">About</a>
+        <a href="#work" style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#c9c2b4;">Work</a>
+        <a href="#experience" style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#c9c2b4;">Experience</a>
+        <a href="#contact" style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#c9c2b4;">Contact</a>
+      </div>
+    </nav>
+    <div style="position:relative;z-index:2;padding:0 3.5rem 4.5rem;max-width:1100px;">
+      <span style="display:inline-block;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#d9a441;margin-bottom:1.25rem;">3D Environment Artist</span>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,9vw,128px);line-height:0.92;letter-spacing:0.01em;margin:0 0 1.25rem;color:#f5f1e8;">KIM SUNG JUN</h1>
+      <p style="font-size:16px;color:#c9c2b4;max-width:560px;margin:0;line-height:1.8;">홀로 빛나는 아티스트를 넘어, <br>팀과 함께 성장하며 시너지를 내는 김성준입니다.</p>
+    </div>
+    <p style="position:absolute;right:3.5rem;top:1.75rem;z-index:2;margin:0;font-size:11px;letter-spacing:0.05em;color:#c9c2b4;">해당 웹사이트는 AI 바이브코딩으로 제작되었습니다.</p>
+  </header>
+
+  <!-- PROJECT MODAL -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onclick="{{ closeProjectBg }}" style="display:flex;position:fixed;inset:0;z-index:200;background:rgba(6,5,5,0.85);backdrop-filter:blur(6px);padding:4vh 4vw;align-items:flex-start;justify-content:center;">
+      <article onclick="{{ stopClick }}" style="position:relative;width:100%;max-width:900px;max-height:92vh;overflow-y:auto;background:#161412;border:1px solid #2a2622;border-top:3px solid #d9a441;border-radius:3px;padding:2.75rem 2.5rem 3rem;box-shadow:0 30px 80px rgba(0,0,0,0.6);box-sizing:border-box;">
+        <button onclick="{{ closeProject }}" aria-label="닫기" style="position:absolute;top:1rem;right:1rem;width:34px;height:34px;border:1px solid #2a2622;background:#1f1c19;border-radius:50%;cursor:pointer;font-size:13px;color:#c9c2b4;">✕</button>
+        <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:#d9a441;margin:0 0 0.5rem;">{{ modalMeta }}</p>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#f5f1e8;margin:0 0 1rem;letter-spacing:0.01em;">{{ modalTitle }}</h3>
+        <p style="font-size:14px;color:#c9c2b4;line-height:1.9;margin:0 0 1.25rem;white-space:pre-line;">{{ modalDesc }}</p>
+        <div style="margin-bottom:2rem;">
+          <a href="{{ modalLink }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#d9a441;border-bottom:1px solid #4a3d20;padding-bottom:1px;">{{ modalLinkText }} ↗</a>
+          <sc-if value="{{ modalHasLink2 }}" hint-placeholder-val="{{ false }}">
+            <a href="{{ modalLink2 }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#d9a441;border-bottom:1px solid #4a3d20;padding-bottom:1px;margin-left:1.5rem;">{{ modalLink2Text }} ↗</a>
+          </sc-if>
+        </div>
+        <div style="{{ modalImagesStyle }}">
+          <sc-for list="{{ modalImages }}" as="pic" hint-placeholder-count="3">
+            <sc-if value="{{ pic.isImage }}" hint-placeholder-val="{{ true }}">
+              <img src="{{ pic.src }}" alt="{{ modalTitle }}" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid #2a2622;border-radius:2px;{{ pic.cellStyle }}">
+            </sc-if>
+            <sc-if value="{{ pic.isVideo }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative;width:100%;aspect-ratio:16/9;border:1px solid #2a2622;border-radius:2px;overflow:hidden;background:#0d0c0b;">
+                <iframe src="{{ pic.embedUrl }}" title="{{ modalTitle }}" frameborder="0" allowfullscreen="true" style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block;"></iframe>
+              </div>
+            </sc-if>
+          </sc-for>
+        </div>
+        <sc-if value="{{ modalHasList }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:2rem;border-top:1px solid #2a2622;padding-top:1.5rem;">
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.9rem;">{{ modalListTitle }}</p>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.55rem;">
+              <sc-for list="{{ modalList }}" as="lk" hint-placeholder-count="3">
+                <li><a href="{{ lk.url }}" target="_blank" rel="noopener" style="font-size:13px;color:#c9c2b4;line-height:1.55;">{{ lk.title }} ↗</a></li>
+              </sc-for>
+            </ul>
+          </div>
+        </sc-if>
+      </article>
+    </div>
+  </sc-if>
+
+  <!-- ABOUT / SKILLS -->
+  <section id="about" style="padding:5rem 3.5rem;max-width:1400px;margin:0 auto;border-top:1px solid #221f1c;">
+    <div style="display:grid;grid-template-columns:var(--profile-w) 1fr;gap:4rem;">
+      <div>
+        <img src="assets/profile.jpg" alt="김성준" style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center 12%;border-radius:2px;filter:grayscale(0.15);">
+        <div style="margin-top:1.25rem;font-size:12px;color:#8a8377;line-height:1.9;">
+          <div style="color: #FFFFFF">010-2120-8304</div>
+          <div style="color: #FFFFFF">ksb3804k@naver.com</div>
+          <div style="color: #FFFFFF">경기도 화성시</div>
+        </div>
+      </div>
+      <div>
+        <h2 style="font-family: 'Bebas Neue',sans-serif; font-size: 40px; letter-spacing: 0.02em; margin: 0 0 1.5rem; color: #D9821C">ABOUT</h2>
+        <p style="font-size: 14.5px; color: #FFFFFF; line-height: 1.95; max-width: 640px; margin: 0 0 2.5rem">성공회대학교 디지털콘텐츠전공 졸업. Unreal Engine 5·3ds Max·ZBrush 기반의 3D 배경 아티스트로, 라이팅·머티리얼·최적화를 아우르며 몰입감 있는 공간을 설계합니다. 언론기구·디자인 인턴 경험을 통해 다진 색채 감각과 커뮤니케이션 역량으로 팀과 시너지를 만드는 데 강점이 있습니다.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;">
+          <div>
+            <h4 style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#d9a441;margin:0 0 0.9rem;">공간 제작</h4>
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+              <span style="font-size:12px;padding:5px 11px;border:1px solid #2a2622;border-radius:20px;color:#e8e3da;">3Ds Max</span>
+              <span style="font-size:12px;padding:5px 11px;border:1px solid #2a2622;border-radius:20px;color:#e8e3da;">Z Brush</span>
+              <span style="font-size:12px;padding:5px 11px;border:1px solid #2a2622;border-radius:20px;color:#e8e3da;">Substance Painter</span>
+              <span style="font-size:12px;padding:5px 11px;border:1px solid #2a2622;border-radius:20px;color:#e8e3da;">Unreal Engine 5</span>
+              <span style="font-size:12px;padding:5px 11px;border:1px solid #2a2622;border-radius:20px;color:#e8e3da;">Unity</span>
+            </div>
+          </div>
+          <div>
+            <h4 style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#d9a441;margin:0 0 0.9rem;">시각 표현</h4>
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+              
+              <span style="font-size:12px;padding:5px 11px;border:1px solid #2a2622;border-radius:20px;color:#e8e3da;">Photoshop</span>
+              <span style="font-size:12px;padding:5px 11px;border:1px solid #2a2622;border-radius:20px;color:#e8e3da;">Illustrator</span>
+              <span style="font-size:12px;padding:5px 11px;border:1px solid #2a2622;border-radius:20px;color:#e8e3da;">Premiere Pro</span>
+              <span style="font-size:12px;padding:5px 11px;border:1px solid #2a2622;border-radius:20px;color:#e8e3da;">After Effects</span>
+            </div>
+          </div>
+          <div>
+            <h4 style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#d9a441;margin:0 0 0.9rem;">AI &amp; 시스템</h4>
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+              <span style="font-size:12px;padding:5px 11px;border:1px solid #2a2622;border-radius:20px;color:#e8e3da;">Claude</span>
+              <span style="font-size:12px;padding:5px 11px;border:1px solid #2a2622;border-radius:20px;color:#e8e3da;">ChatGPT</span>
+              <span style="font-size:12px;padding:5px 11px;border:1px solid #2a2622;border-radius:20px;color:#e8e3da;">Gemini</span>
+              <span style="font-size:12px;padding:5px 11px;border:1px solid #2a2622;border-radius:20px;color:#e8e3da;">Notebook LM</span>
+              <span style="font-size:12px;padding:5px 11px;border:1px solid #2a2622;border-radius:20px;color:#e8e3da;">Notion</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:2.75rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;border-top:1px solid #221f1c;padding-top:2rem;">
+          <div>
+            <h4 style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#d9a441;margin:0 0 0.7rem;">학력</h4>
+            <p style="font-size: 13px; color: #FFFFFF; margin: 0; line-height: 1.8">성공회대학교 · 디지털콘텐츠전공 (신문방송학 부전공)<br>2019.03 — 2025.02 · 학점 3.71/4.5</p>
+          </div>
+          <div>
+            <h4 style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#d9a441;margin:0 0 0.7rem;">자격 · 병역</h4>
+            <p style="font-size: 13px; color: #FFFFFF; margin: 0; line-height: 1.8">GTQ 1급 · GTQi 1급 · 운전면허 1종<br>군필 (2021.12 — 2023.06)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK / PORTFOLIO -->
+  <section id="work" style="padding:7rem 3.5rem 6rem;max-width:1400px;margin:0 auto;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1rem;">
+      <h2 style="font-family: 'Bebas Neue',sans-serif; font-size: 46px; letter-spacing: 0.02em; margin: 0; color: #D9821C">SELECTED WORK</h2>
+      <span style="font-size:12px;color:#8a8377;letter-spacing:0.08em;text-transform:uppercase;">클릭하면 상세 갤러리가 열립니다</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+      <figure onclick="{{ openSagrada }}" tabindex="0" role="button" style="margin:0;cursor:pointer;position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:2px;">
+        <img src="assets/portfolio/sagrada-main.jpg" alt="Sagrada Familia" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;" style-hover="transform:scale(1.05);">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(13,12,11,0.9) 100%);"></div>
+        <div style="position:absolute;left:1.75rem;bottom:1.5rem;right:1.75rem;">
+          <span style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#d9a441;">Unreal Engine 5 · Graduation Work</span>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#f5f1e8;margin:0.4rem 0 0;letter-spacing:0.01em;">SAGRADA FAMILIA</h3>
+        </div>
+      </figure>
+
+      <figure onclick="{{ openIron }}" tabindex="0" role="button" style="margin:0;cursor:pointer;position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:2px;">
+        <img src="assets/portfolio/iron-main.jpg" alt="Iron Maiden" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;" style-hover="transform:scale(1.05);">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(13,12,11,0.9) 100%);"></div>
+        <div style="position:absolute;left:1.75rem;bottom:1.5rem;right:1.75rem;">
+          <span style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#d9a441;">Unreal Engine 5 · Interior Environment</span>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#f5f1e8;margin:0.4rem 0 0;letter-spacing:0.01em;">IRON MAIDEN</h3>
+        </div>
+      </figure>
+    </div>
+
+    <figure onclick="{{ openMol }}" tabindex="0" role="button" style="margin:0;cursor:pointer;position:relative;aspect-ratio:21/8;overflow:hidden;border-radius:2px;">
+      <img src="assets/portfolio/mol-blue-main.jpg" alt="M.O.L." loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;" style-hover="transform:scale(1.05);">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(13,12,11,0.9) 100%);"></div>
+      <div style="position:absolute;left:1.75rem;bottom:1.5rem;right:1.75rem;">
+        <span style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#d9a441;">Team Project · Unity</span>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#f5f1e8;margin:0.4rem 0 0.6rem;letter-spacing:0.01em;">M.O.L.</h3>
+        <p style="font-size:13px;color:#c9c2b4;margin:0;line-height:1.7;">My Observation Log — 4인 팀 프로젝트, 배경 전반 담당</p>
+      </div>
+    </figure>
+  </section>
+
+  <!-- OTHER WORK (2D / Web / Vibe Coding) -->
+  <section id="otherwork" style="padding:0 3.5rem 6rem;max-width:1400px;margin:0 auto;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1rem;">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:0.02em;margin:0;color:#D9821C">OTHER WORK</h2>
+      <span style="font-size:12px;color:#8a8377;letter-spacing:0.08em;text-transform:uppercase;">2D · Web · Vibe Coding</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+      <figure onclick="{{ openSynapse }}" tabindex="0" role="button" style="margin:0;cursor:pointer;position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:2px;">
+        <img src="assets/portfolio/synapse-thumb.jpg" alt="SynapseLog" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform 0.5s ease;" style-hover="transform:scale(1.05);">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(13,12,11,0.9) 100%);"></div>
+        <div style="position:absolute;left:1.75rem;bottom:1.5rem;right:1.75rem;">
+          <span style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#d9a441;">Web · Vibe Coding</span>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#f5f1e8;margin:0.4rem 0 0;letter-spacing:0.01em;">SYNAPSELOG</h3>
+        </div>
+      </figure>
+
+      <figure onclick="{{ openMedia }}" tabindex="0" role="button" style="margin:0;cursor:pointer;position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:2px;">
+        <img src="assets/portfolio/media-thumb.jpg" alt="미디어센터" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform 0.5s ease;" style-hover="transform:scale(1.05);">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(13,12,11,0.9) 100%);"></div>
+        <div style="position:absolute;left:1.75rem;bottom:1.5rem;right:1.75rem;">
+          <span style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#d9a441;">대학언론 · Video Editing</span>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#f5f1e8;margin:0.4rem 0 0;letter-spacing:0.01em;">미디어센터</h3>
+        </div>
+      </figure>
+
+      <figure onclick="{{ openIq }}" tabindex="0" role="button" style="margin:0;cursor:pointer;position:relative;aspect-ratio:21/8;grid-column:1/-1;overflow:hidden;border-radius:2px;">
+        <img src="assets/portfolio/iq-thumb.webp" alt="아이맘 처방 동화" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform 0.5s ease;" style-hover="transform:scale(1.05);">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(13,12,11,0.9) 100%);"></div>
+        <div style="position:absolute;left:1.75rem;bottom:1.5rem;right:1.75rem;">
+          <span style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#d9a441;">인턴 · Illustration</span>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#f5f1e8;margin:0.4rem 0 0;letter-spacing:0.01em;">(주)아이큐비타민</h3>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE (condensed accordion) -->
+  <section id="experience" style="padding:5rem 3.5rem;max-width:1400px;margin:0 auto;border-top:1px solid #221f1c;">
+    <h2 style="font-family: 'Bebas Neue',sans-serif; font-size: 40px; letter-spacing: 0.02em; margin: 0 0 2.5rem; color: #D9821C">EXPERIENCE</h2>
+    <div style="display:flex;flex-direction:column;">
+
+      <div style="border-bottom:1px solid #221f1c;">
+        <div onclick="{{ toggleExpCaps }}" style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1rem;margin:0 -1rem;border-radius:4px;cursor:pointer;user-select:none;transition:background 0.2s ease;" style-hover="background:#2a251d;">
+          <div style="display:flex;align-items:baseline;gap:1.25rem;"><span style="font-size: 11px; color: #d9a441; letter-spacing: 0.08em; width: 80px; font-weight: 500">교내</span><span style="font-size: 15px; color: #FFFFFF">캡스톤 발표회</span></div>
+          <div style="display:flex;align-items:center;gap:1.5rem;"><span style="font-size:11px;color:#8a8377;">2024.08 — 2024.11</span><span style="color:#8a8377;">{{ expCapsIcon }}</span></div>
+        </div>
+        <sc-if value="{{ expCapsOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:760px;">
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">경험 간단 설명</p>
+            <ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin:0 0 1.25rem;">
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#8a8377;">—</span>캡스톤디자인(졸업작품) 설명회에서 교수님과 총장님을 초청하여, AI에 대한 가치관과 활용 방향성에 대해 발표한 경험이 있습니다.</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#8a8377;">—</span>해당 발표를 준비하는 과정에서 스피치 수업을 수강하며 전달력을 보완했고, 교수님과 총장님께 직접 찾아가 발표 취지와 내용을 설명드리며 초청을 부탁드리는 등 적극적으로 준비했습니다.</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#8a8377;">—</span>이를 통해 자신의 생각을 타인에게 설득력 있게 전달하기 위해서는, 단순한 지식뿐만 아니라 충분한 준비와 소통의 노력이 필요하다는 점을 깨달을 수 있었습니다.</li>
+            </ul>
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">주 내용들</p>
+            <ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin:0;">
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">1.</span>AI는 지브리의 그림체를 재현할 수 있지만, 지브리를 대체할 수 없다. 우리가 소비하는 건 그림체가 아니라 작품을 넘어선 <strong style="color:#d9a441;">회사 자체의 스토리와 브랜딩</strong>이기 때문이다.</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">2.</span>이 논리를 증명하기 위해 신입생 인터뷰, 교수 TA, 총장님 초청 준비 등 다양한 활동을 했다. 그 과정은 <strong style="color:#d9a441;">나 자신의 브랜딩과 스토리를 쌓는 행위</strong>였다. 핵심 논지는 이 전공을 선택한 신입생의 초심 안에 <strong style="color:#d9a441;">AI가 범접하지 못하는 인간 고유의 본질</strong>이 있다는 것이었다. 그러나 <strong style="color:#d9a441;">사회가 AI를 받아들이는 과정에서 그 본질마저 깨질 수 있음</strong>을 깨달았고, 패배를 선언했다.</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">3.</span>그리고 그 패배를 받아들이는 순간, 역설적으로 <strong style="color:#d9a441;">인간 고유의 본질이 변칙성이었음</strong>을 알게 됐다.</li>
+            </ul>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="border-bottom:1px solid #221f1c;">
+        <div onclick="{{ toggleExpExhibit }}" style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1rem;margin:0 -1rem;border-radius:4px;cursor:pointer;user-select:none;transition:background 0.2s ease;" style-hover="background:#2a251d;">
+          <div style="display:flex;align-items:baseline;gap:1.25rem;"><span style="font-size: 11px; color: #d9a441; letter-spacing: 0.08em; width: 80px; font-weight: 500">전시</span><span style="font-size: 15px; color: #FFFFFF">졸업 작품 전시회 운영</span></div>
+          <div style="display:flex;align-items:center;gap:1.5rem;"><span style="font-size:11px;color:#8a8377;">2024.08 — 2024.12</span><span style="color:#8a8377;">{{ expExhibitIcon }}</span></div>
+        </div>
+        <sc-if value="{{ expExhibitOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:760px;">
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">경험 간단 설명</p>
+            <p style="font-size:13px;color:#FFFFFF;line-height:1.85;margin:0 0 1.25rem;">졸업 작품 전시를 위한 공간 구성 및 운영을 담당하며, 작품이 효과적으로 전달될 수 있도록 전시 환경을 기획하고 준비했습니다.</p>
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">주 시도들</p>
+            <ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin:0;">
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">1.</span>졸업 작품의 분위기와 주제를 고려한 현수막 및 시각물 제작</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">2.</span>전시 공간 동선 및 작품 배치 관리</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">3.</span>전시 준비 과정에서 일정 조율 및 현장 운영 경험</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">4.</span>작품을 단순히 배치하는 것을 넘어, 관람자에게 전달되는 경험과 분위기를 함께 고려하며 전시를 구성</li>
+            </ul>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="border-bottom:1px solid #221f1c;">
+        <div onclick="{{ toggleExpTa }}" style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1rem;margin:0 -1rem;border-radius:4px;cursor:pointer;user-select:none;transition:background 0.2s ease;" style-hover="background:#2a251d;">
+          <div style="display:flex;align-items:baseline;gap:1.25rem;"><span style="font-size: 11px; color: #d9a441; letter-spacing: 0.08em; width: 80px; font-weight: 500">교내</span><span style="font-size: 15px; color: #FFFFFF">TA (강의 실습 조교)</span></div>
+          <div style="display:flex;align-items:center;gap:1.5rem;"><span style="font-size:11px;color:#8a8377;">2024.08 — 2024.12</span><span style="color:#8a8377;">{{ expTaIcon }}</span></div>
+        </div>
+        <sc-if value="{{ expTaOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:760px;">
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">경험 간단 설명</p>
+            <p style="font-size:13px;color:#FFFFFF;line-height:1.85;margin:0 0 1.25rem;">대학교 시절, 교수님의 조교(TA)로 활동하며, 실습 수업을 지원한 경험이 있습니다.</p>
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">주 시도들</p>
+            <ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin:0;">
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">1.</span>강의 내용을 따라오기 어려워하는 학생들에게 툴 사용법과 과제를 이해하기 쉽게 설명하고, 개인별 피드백을 제공하며 학습효과를 높이고자 했습니다.</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">2.</span>복잡한 기술적 내용을 단순화하여 전달하는 능력, 그리고 상대방의 이해도를 고려한 커뮤니케이션 역량을 기를 수 있었습니다.</li>
+            </ul>
+          </div>
+        </sc-if>
+      </div>
+
+      <div>
+        <div onclick="{{ toggleExpCrowd }}" style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1rem;margin:0 -1rem;border-radius:4px;cursor:pointer;user-select:none;transition:background 0.2s ease;" style-hover="background:#2a251d;">
+          <div style="display:flex;align-items:baseline;gap:1.25rem;"><span style="font-size: 11px; color: #d9a441; letter-spacing: 0.08em; width: 80px; font-weight: 500">외주</span><span style="font-size: 15px; color: #FFFFFF">한국디자인진흥원 · OCR 데이터 구축</span></div>
+          <div style="display:flex;align-items:center;gap:1.5rem;"><span style="font-size:11px;color:#8a8377;">2021.09 — 2021.12</span><span style="color:#8a8377;">{{ expCrowdIcon }}</span></div>
+        </div>
+        <sc-if value="{{ expCrowdOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:760px;">
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">프로젝트 간단 설명</p>
+            <ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin:0 0 1.25rem;">
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#8a8377;">—</span>한국디자인진흥원에서 진행한 인공지능 학습용 데이터 구축 사업에 참여하여, OCR 기반 AI 학습 데이터를 제작하는 외주 프로젝트를 수행했습니다.</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#8a8377;">—</span>데이터 정제 및 가공 과정을 경험하며, 인공지능이 데이터를 학습하는 구조와 제작 프로세스에 대해 이해할 수 있었습니다.</li>
+            </ul>
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">주 시도들</p>
+            <ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin:0;">
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">1.</span>OCR 인공지능 학습용 데이터 제작 및 검수</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">2.</span>데이터 정제 및 AI 학습 구조 프로세스 이해</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">3.</span>반복적인 데이터 가공 과정 속에서 정확성과 일관성의 중요성 경험</li>
+            </ul>
+          </div>
+        </sc-if>
+        
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION & TRAINING (수업 수료) -->
+  <section id="training" style="padding:5rem 3.5rem;max-width:1400px;margin:0 auto;border-top:1px solid #221f1c;">
+    <h2 style="font-family: 'Bebas Neue',sans-serif; font-size: 40px; letter-spacing: 0.02em; margin: 0 0 2.5rem; color: #D9821C">EDUCATION &amp; TRAINING</h2>
+    <div style="display:flex;flex-direction:column;">
+
+      <div style="border-bottom:1px solid #221f1c;">
+        <div onclick="{{ toggleCrsClaude }}" style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1rem;margin:0 -1rem;border-radius:4px;cursor:pointer;user-select:none;transition:background 0.2s ease;" style-hover="background:#2a251d;">
+          <div style="display:flex;align-items:baseline;gap:1.25rem;"><span style="font-size: 11px; color: #d9a441; letter-spacing: 0.08em; width: 80px; font-weight: 500">수료</span><span style="font-size: 15px; color: #FFFFFF">Claude 101</span></div>
+          <div style="display:flex;align-items:center;gap:1.5rem;"><span style="font-size:11px;color:#8a8377;">2026.05.14</span><span style="color:#8a8377;">{{ crsClaudeIcon }}</span></div>
+        </div>
+        <sc-if value="{{ crsClaudeOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:760px;">
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">경험 간단 설명</p>
+            <p style="font-size:13px;color:#FFFFFF;line-height:1.85;margin:0 0 1.25rem;">클로드 기본 개념을 배웠습니다.</p>
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">주 시도들</p>
+            <ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin:0;">
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">1.</span>api, mcp 연동의 기본적인 틀</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">2.</span>클로드 코드의 다양한 기능</li>
+            </ul>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="border-bottom:1px solid #221f1c;">
+        <div onclick="{{ toggleCrsAicon }}" style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1rem;margin:0 -1rem;border-radius:4px;cursor:pointer;user-select:none;transition:background 0.2s ease;" style-hover="background:#2a251d;">
+          <div style="display:flex;align-items:baseline;gap:1.25rem;"><span style="font-size: 11px; color: #d9a441; letter-spacing: 0.08em; width: 80px; font-weight: 500">컨퍼런스</span><span style="font-size: 15px; color: #FFFFFF">C2C 2025: GAME AICON SEOUL</span></div>
+          <div style="display:flex;align-items:center;gap:1.5rem;"><span style="font-size:11px;color:#8a8377;">2025.06.03 — 2025.06.04</span><span style="color:#8a8377;">{{ crsAiconIcon }}</span></div>
+        </div>
+        <sc-if value="{{ crsAiconOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:760px;">
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">경험 간단 설명</p>
+            <p style="font-size:13px;color:#FFFFFF;line-height:1.85;margin:0 0 1.25rem;">'C2C 2025: GAME AICON SEOUL' 컨퍼런스에 참여하여, AI 기술이 게임 산업과 제작 파이프라인에 미치는 변화와 가능성에 대해 학습했습니다.</p>
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">주 시도들</p>
+            <ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin:0 0 1.25rem;">
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">1.</span>생성형 AI와 게임 제작 프로세스 변화에 대한 강연 청취</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">2.</span>AI 기술이 배경 제작, 콘텐츠 생산, 개발 파이프라인에 활용되는 사례 학습</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">3.</span>기술 발전 속에서 창작자의 역할과 방향성에 대해 고민하는 계기 경험</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">4.</span>AI를 단순 생성 도구가 아닌, 작업 구조와 제작 효율을 설계하는 관점으로 바라보게 된 경험</li>
+            </ul>
+            <a href="https://www.gameaicon.com/" target="_blank" style="font-size:12px;color:#d9a441;">행사 페이지 보기 →</a>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="border-bottom:1px solid #221f1c;">
+        <div onclick="{{ toggleCrsMedia23 }}" style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1rem;margin:0 -1rem;border-radius:4px;cursor:pointer;user-select:none;transition:background 0.2s ease;" style-hover="background:#2a251d;">
+          <div style="display:flex;align-items:baseline;gap:1.25rem;"><span style="font-size: 11px; color: #d9a441; letter-spacing: 0.08em; width: 80px; font-weight: 500">컨퍼런스</span><span style="font-size: 15px; color: #FFFFFF">미디어의 미래 컨퍼런스 2023</span></div>
+          <div style="display:flex;align-items:center;gap:1.5rem;"><span style="font-size:11px;color:#8a8377;">2023.08.24 — 2023.08.25</span><span style="color:#8a8377;">{{ crsMedia23Icon }}</span></div>
+        </div>
+        <sc-if value="{{ crsMedia23Open }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:760px;">
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">경험 간단 설명</p>
+            <p style="font-size:13px;color:#FFFFFF;line-height:1.85;margin:0 0 1.25rem;">'2023 미디어의 미래 컨퍼런스'에 참여하여, AI와 디지털 미디어 기술이 창작 환경과 산업 구조에 어떤 변화를 만들어가고 있는지에 대해 학습했습니다.</p>
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">주 내용들</p>
+            <ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin:0 0 1.25rem;">
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">1.</span>AI 기술과 미디어 산업의 변화 흐름에 대한 강연 청취</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">2.</span>생성형 AI와 콘텐츠 제작 방식 변화에 대한 이해</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">3.</span>기술 발전 속에서 창작자의 역할과 방향성에 대해 고민하는 계기 경험</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">4.</span>단순한 기술 활용을 넘어, AI를 어떻게 창작 과정에 연결할 수 있을지에 대한 관점 확장</li>
+            </ul>
+            <a href="https://www.mediafuture.kr/event/history/history-2023.html" target="_blank" style="font-size:12px;color:#d9a441;">행사 페이지 보기 →</a>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="border-bottom:1px solid #221f1c;">
+        <div onclick="{{ toggleCrsNews }}" style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1rem;margin:0 -1rem;border-radius:4px;cursor:pointer;user-select:none;transition:background 0.2s ease;" style-hover="background:#2a251d;">
+          <div style="display:flex;align-items:baseline;gap:1.25rem;"><span style="font-size: 11px; color: #d9a441; letter-spacing: 0.08em; width: 80px; font-weight: 500">수료</span><span style="font-size: 15px; color: #FFFFFF">2022 겨울 대학언론강화</span></div>
+          <div style="display:flex;align-items:center;gap:1.5rem;"><span style="font-size:11px;color:#8a8377;">2022.01.17 — 2022.01.21</span><span style="color:#8a8377;">{{ crsNewsIcon }}</span></div>
+        </div>
+        <sc-if value="{{ crsNewsOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:760px;">
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">경험 간단 설명</p>
+            <p style="font-size:13px;color:#FFFFFF;line-height:1.85;margin:0 0 1.25rem;">'2022 겨울 대학언론강좌'에 참여하여, 미디어와 사회 이슈를 바라보는 다양한 관점과 커뮤니케이션 방식에 대해 학습했습니다.</p>
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">주 내용들</p>
+            <ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin:0 0 1.25rem;">
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">1.</span>민주언론시민연합에서 진행하는 2022 겨울 대학언론강화 과정을 수료했습니다.</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">2.</span>취재방법, 취재일지 작성법, 인터뷰, 레이아웃과 편집 등 전 과정을 수료했습니다.</li>
+            </ul>
+            <a href="https://www.ccdm.or.kr/notice/307618" target="_blank" style="font-size:12px;color:#d9a441;">과정 안내 보기 →</a>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="border-bottom:1px solid #221f1c;">
+        <div onclick="{{ toggleCrsIt }}" style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1rem;margin:0 -1rem;border-radius:4px;cursor:pointer;user-select:none;transition:background 0.2s ease;" style-hover="background:#2a251d;">
+          <div style="display:flex;align-items:baseline;gap:1.25rem;"><span style="font-size: 11px; color: #d9a441; letter-spacing: 0.08em; width: 80px; font-weight: 500">교육</span><span style="font-size: 15px; color: #FFFFFF">미디어 관련 IT전문가 양성</span></div>
+          <div style="display:flex;align-items:center;gap:1.5rem;"><span style="font-size:11px;color:#8a8377;">2021.10.01 — 2021.12.22</span><span style="color:#8a8377;">{{ crsItIcon }}</span></div>
+        </div>
+        <sc-if value="{{ crsItOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:760px;">
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">경험 간단 설명</p>
+            <p style="font-size:13px;color:#FFFFFF;line-height:1.85;margin:0 0 1.25rem;">구로구청에서 진행한 '미디어 관련 IT전문가 양성 사업' 교육 과정에 참여하여, 모션그래픽 및 영상 편집 기반의 디자인 실무를 학습했습니다.</p>
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">주 내용들</p>
+            <ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin:0 0 1.25rem;">
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">1.</span>모션그래픽 및 영상 편집 툴의 기초 활용 학습</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">2.</span>시각적 전달력과 정보 구성 방식에 대한 이해</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">3.</span>디자인 작업 과정에서 영상과 그래픽의 흐름을 고려하는 시각 경험</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">4.</span>다양한 디지털 콘텐츠 제작 과정을 경험하며, 시각 표현 영역에 대한 관심 확장</li>
+            </ul>
+            <a href="https://www.guro.go.kr/www/selectBbsNttView.do?bbsNo=662&amp;nttNo=108370&amp;&amp;pageUnit=10&amp;searchCnd=CN&amp;searchKrwd=%EC%B7%A8%EC%97%85&amp;key=1790&amp;pageIndex=17" target="_blank" style="font-size:12px;color:#d9a441;">사업 공고 보기 →</a>
+          </div>
+        </sc-if>
+      </div>
+
+      <div>
+        <div onclick="{{ toggleCrsYouth }}" style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1rem;margin:0 -1rem;border-radius:4px;cursor:pointer;user-select:none;transition:background 0.2s ease;" style-hover="background:#2a251d;">
+          <div style="display:flex;align-items:baseline;gap:1.25rem;"><span style="font-size: 11px; color: #d9a441; letter-spacing: 0.08em; width: 80px; font-weight: 500">수료</span><span style="font-size: 15px; color: #FFFFFF">2019 구로구 청년 중소기업 체험</span></div>
+          <div style="display:flex;align-items:center;gap:1.5rem;"><span style="font-size:11px;color:#8a8377;">2019.06.24 — 2019.06.26</span><span style="color:#8a8377;">{{ crsYouthIcon }}</span></div>
+        </div>
+        <sc-if value="{{ crsYouthOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:760px;">
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">경험 간단 설명</p>
+            <p style="font-size:13px;color:#FFFFFF;line-height:1.85;margin:0 0 1.25rem;">구로구에서 진행한 '청년 중소기업 탐방 체험' 프로그램에 참여하여, 다양한 산업 현장과 기업 문화를 경험하고 취업 및 진로에 대한 시야를 넓힐 수 있었습니다.</p>
+            <p style="font-size:12px;color:#d9a441;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 0.5rem;">주 시도들</p>
+            <ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin:0 0 1.25rem;">
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">1.</span>기업 탐방과 현직자 특강을 통해 실제 산업 현장의 업무 방식과 직무 환경을 이해하고자 했습니다.</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">2.</span>취업 전략 및 청년 고용 정책 관련 프로그램에 참여하며, 진로 방향성과 사회 진출 과정에 대해 고민하는 계기를 가졌습니다.</li>
+              <li style="font-size:13px;color:#FFFFFF;padding-left:1.4rem;position:relative;line-height:1.85;"><span style="position:absolute;left:0;color:#d9a441;font-weight:700;">3.</span>다양한 사람들과의 활동 및 커뮤니케이션을 통해 협업과 사회적 소통의 중요성을 경험했습니다.</li>
+            </ul>
+            <a href="https://www.guro.go.kr/bbs/selectBbsNttView.do?bbsNo=662&amp;nttNo=57044&amp;&amp;pageUnit=10&amp;key=3477&amp;pageIndex=618" target="_blank" style="font-size:12px;color:#d9a441;">사업 공고 보기 →</a>
+          </div>
+        </sc-if>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SELF INTRO (full) -->
+  <section id="statement" style="padding:5rem 3.5rem;max-width:1400px;margin:0 auto;border-top:1px solid #221f1c;">
+    <h2 style="font-family: 'Bebas Neue',sans-serif; font-size: 40px; letter-spacing: 0.02em; margin: 0 0 2.5rem; color: #D9821C">STATEMENT</h2>
+    <div style="display:flex;flex-direction:column;">
+
+      <div style="border-bottom:1px solid #221f1c;padding:1.1rem 0;">
+        <div onclick="{{ toggleIntro1 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;padding:0.15rem 1rem;margin:0 -1rem;border-radius:4px;cursor:pointer;user-select:none;transition:background 0.2s ease;" style-hover="background:#2a251d;">
+          <div>
+            <p style="font-size: 12px; color: #D9A441; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 0.5rem; font-weight: 500">성장 과정 및 지원 동기</p>
+            <p style="font-family: 'Bebas Neue',sans-serif; font-size: 19px; color: #FFFFFF; letter-spacing: 0.01em; margin: 0">"사용자에게 감정을 전하고, 추억을 만들어주는 공간을 설계하는 3D 배경 아티스트"</p>
+          </div>
+          <span style="color:#8a8377;flex-shrink:0;font-size:20px;line-height:1;padding-top:0.2rem;">{{ intro1Icon }}</span>
+        </div>
+        <sc-if value="{{ intro1Open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding-top:1.25rem;max-width:820px;">
+            <p style="font-size: 13.5px; color: #FFFFFF; line-height: 1.9; margin: 0 0 0.9rem">저는 배경이 단순한 오브젝트가 아닌 감정과 이야기를 전달하는 매개체라고 생각합니다. 이러한 관점은 대학 시절 언론 기구에서 영상 편집 기자로 활동하며 형성되었습니다. 기획부터 촬영, 편집까지 전 과정에 참여하며, 단순한 정보 전달을 넘어 감정을 전달하는 콘텐츠의 중요성을 깨달았습니다.</p>
+            <p style="font-size: 13.5px; color: #FFFFFF; line-height: 1.9; margin: 0 0 0.9rem">이후 'IQ 비타민' 인턴으로 아동 심리 기반 도서 삽화를 제작하며 색감과 조형 감각을 익혔고, 이는 3D 배경 제작 시 텍스처 표현에 강점으로 이어졌습니다. 또한 4인 팀 프로젝트 'M.O.L.'에서는 2D 캐릭터와 3D 배경의 조화를 고려한 아트 방향을 조율하며 협업 경험을 쌓았습니다.</p>
+            <p style="font-size: 13.5px; color: #FFFFFF; line-height: 1.9; margin: 0">이처럼 다양한 경험을 통해 '감정을 전달하는 공간'에 대한 기준을 확립했으며, 이를 바탕으로 사용자에게 몰입감 있는 경험을 제공하는 3D 배경 아티스트로 성장하겠습니다.</p>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="border-bottom:1px solid #221f1c;padding:1.1rem 0;">
+        <div onclick="{{ toggleIntro2 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;padding:0.15rem 1rem;margin:0 -1rem;border-radius:4px;cursor:pointer;user-select:none;transition:background 0.2s ease;" style-hover="background:#2a251d;">
+          <div>
+            <p style="font-size: 12px; color: #D9A441; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 0.5rem; font-weight: 500">강점과 경력 사항</p>
+            <p style="font-family: 'Bebas Neue',sans-serif; font-size: 19px; color: #FFFFFF; letter-spacing: 0.01em; margin: 0">"기술 구조 이해를 바탕으로 협업 효율을 높이는 아티스트"</p>
+          </div>
+          <span style="color:#8a8377;flex-shrink:0;font-size:20px;line-height:1;padding-top:0.2rem;">{{ intro2Icon }}</span>
+        </div>
+        <sc-if value="{{ intro2Open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding-top:1.25rem;max-width:820px;">
+            <p style="font-size: 13.5px; color: #FFFFFF; line-height: 1.9; margin: 0 0 0.9rem">저의 가장 큰 강점은 기술 구조에 대한 이해력입니다. 저는 새로운 기술을 접할 때 결과물보다 작동 원리를 파악하는 데 집중하며, 이를 통해 문제를 빠르게 분석하고 해결하는 능력을 길러왔습니다.</p>
+            <p style="font-size: 13.5px; color: #FFFFFF; line-height: 1.9; margin: 0 0 0.9rem">이러한 강점은 팀 프로젝트 'M.O.L.'에서 발휘되었습니다. 2D 캐릭터와 3D 배경이 혼합된 환경에서 머티리얼 파라미터, 텍스처 감도, 라이팅 밸런스를 조정하며 시각적 통일성을 개선했습니다. 또한 협업 과정에서 발생한 그래픽 오류의 원인을 구조적으로 분석해 수정 방향을 제시하며, 안정적인 제작 환경을 만들었습니다.</p>
+            <p style="font-size: 13.5px; color: #FFFFFF; line-height: 1.9; margin: 0 0 0.9rem">이 과정에서 원활한 협업을 위해 커뮤니케이션 역량도 함께 발전시켰습니다. 언론기구 활동과 인턴, TA 경험을 통해 다양한 직군과의 기준을 조율하고 기술적 내용을 쉽게 전달하는 방법을 익혔으며, 이는 팀 내 의사소통 속도를 높이고 작업 완성도를 향상시키는 데 기여했습니다.</p>
+            <p style="font-size: 13.5px; color: #FFFFFF; line-height: 1.9; margin: 0">이처럼 기술 이해와 협업 경험을 바탕으로 팀 전체의 효율과 완성도를 높이는 아티스트로 기여하겠습니다.</p>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="border-bottom:1px solid #221f1c;padding:1.1rem 0;">
+        <div onclick="{{ toggleIntro3 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;padding:0.15rem 1rem;margin:0 -1rem;border-radius:4px;cursor:pointer;user-select:none;transition:background 0.2s ease;" style-hover="background:#2a251d;">
+          <div>
+            <p style="font-size: 12px; color: #D9A441; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 0.5rem; font-weight: 500">AI 시대, 인간의 강점에 대한 고찰</p>
+            <p style="font-family: 'Bebas Neue',sans-serif; font-size: 19px; color: #FFFFFF; letter-spacing: 0.01em; margin: 0">"AI를 잘 쓰는 사람은 프롬프트를 잘 쓰는 사람이 아니라, 방향성을 디렉팅하는 사람이다"</p>
+          </div>
+          <span style="color:#8a8377;flex-shrink:0;font-size:20px;line-height:1;padding-top:0.2rem;">{{ intro3Icon }}</span>
+        </div>
+        <sc-if value="{{ intro3Open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding-top:1.25rem;max-width:820px;">
+            <p style="font-size: 13.5px; color: #FFFFFF; line-height: 1.9; margin: 0 0 0.9rem">졸업 작품 발표에서 저는 “AI는 그림체를 재현할 수 있지만 작품의 역사를 대체할 수 없다”고 주장했습니다. 당시에는 AI를 도구로 보았고, 작품의 가치는 인간의 신념과 이야기에서 나온다고 믿었습니다. 그러나 취업을 준비하며 RAG 기반 AI를 처음 접했고, 제가 알던 AI가 이미 과거의 것이 되어 있었다는 것을 깨달았습니다. 과거 가치관에 머물러 있던 저 자신을 돌아보게 된 계기였습니다.</p>
+            <p style="font-size: 13.5px; color: #FFFFFF; line-height: 1.9; margin: 0 0 0.9rem">이후 바이브 코딩, API, MCP 등을 직접 공부했습니다. 그 과정에서 AI를 잘 다루는 사람은 프롬프트를 잘 쓰는 사람이 아니라는 결론에 이르렀습니다. 프롬프트조차 AI가 더 잘 쓸 수 있기 때문입니다. 저는 다양한 AI를 연결해 시스템을 구축하고, 그 방향을 설계하며, 결과에 책임을 지는 사람이 중요해진다고 생각합니다.</p>
+            <p style="font-size: 13.5px; color: #FFFFFF; line-height: 1.9; margin: 0">AI의 판단은 효율과 최적화에 기반합니다. 반면 사람은 불완전함 속에서 아름다움을 느낍니다. 저는 AI가 만든 결과에 인간의 감정과 불완전함을 의도적으로 더해 공감할 수 있는 방향으로 조정하는 것이 인간의 역할이라고 생각합니다. 이것이 제가 말하는 AI 시대의 인간의 변칙성이며, 감정을 전달하는 공간을 만드는 3D 배경 아티스트로서 지향하는 방향입니다.</p>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="padding:1.1rem 0;">
+        <div onclick="{{ toggleIntro4 }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;padding:0.15rem 1rem;margin:0 -1rem;border-radius:4px;cursor:pointer;user-select:none;transition:background 0.2s ease;" style-hover="background:#2a251d;">
+          <div>
+            <p style="font-size: 12px; color: #D9A441; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 0.5rem; font-weight: 500">입사 후 포부</p>
+            <p style="font-family: 'Bebas Neue',sans-serif; font-size: 19px; color: #FFFFFF; letter-spacing: 0.01em; margin: 0">"팀과 함께 성장하며 시너지를 만들어내는 아티스트"</p>
+          </div>
+          <span style="color:#8a8377;flex-shrink:0;font-size:20px;line-height:1;padding-top:0.2rem;">{{ intro4Icon }}</span>
+        </div>
+        <sc-if value="{{ intro4Open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding-top:1.25rem;max-width:820px;">
+            <p style="font-size: 13.5px; color: #FFFFFF; line-height: 1.9; margin: 0 0 0.9rem">AI 기술이 발전하더라도 게임의 완성도는 결국 사람 간의 협업에서 나온다고 생각합니다. 저는 기술 구조 이해와 커뮤니케이션 역량을 바탕으로 팀 내 협업 효율을 높일 수 있는 아티스트입니다. 입사 초기에는 팀의 작업 방식과 파이프라인을 빠르게 이해하고, 실무 프로세스에 맞는 작업 기준을 익히며 안정적으로 프로젝트에 기여하겠습니다.</p>
+            <p style="font-size: 13.5px; color: #FFFFFF; line-height: 1.9; margin: 0">이러한 역량을 더욱 발전시켜, 협업 과정에서 발생하는 문제를 능동적으로 해결하는 역할을 수행하겠습니다. 작업 중 발생하는 그래픽 오류나 비효율적인 공정을 구조적으로 분석하고 개선 방향을 제시하겠습니다. 또한 기획자, 프로그래머 등 다양한 직군과의 협업 과정에서 작업 의도를 명확히 전달하고 피드백을 빠르게 반영하여 프로젝트 완성도를 높이겠습니다. 나아가 AI를 포함한 다양한 기술을 적극 활용하되, 그 안에 인간만의 신념과 스토리를 더해 팀과 함께 의미 있는 결과물을 만들어가겠습니다.</p>
+          </div>
+        </sc-if>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT / FOOTER -->
+  <footer id="contact" style="padding:5rem 3.5rem 3rem;border-top:1px solid #221f1c;text-align:center;">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:0.02em;margin:0 0 1.5rem;color:#f5f1e8;">LET'S WORK TOGETHER</h2>
+    <p style="font-size:13px;color:#8a8377;margin:0 0 2rem;">ksb3804k@naver.com · 010-2120-8304 · 경기도 화성시</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.6rem;margin-bottom:3rem;">
+      <a href="https://www.artstation.com/vis_ta_via" target="_blank" rel="noopener" class="sns-art" style="font-size:12px;border-radius:20px;padding:7px 18px;">ArtStation ↗</a>
+      <a href="https://www.instagram.com/vs_ta_va" target="_blank" rel="noopener" class="sns-art" style="font-size:12px;border-radius:20px;padding:7px 18px;">Instagram ↗</a>
+      <a href="https://www.youtube.com/@Vs_ta_va" target="_blank" rel="noopener" class="sns-art" style="font-size:12px;border-radius:20px;padding:7px 18px;">YouTube ↗</a>
+      <a href="https://www.linkedin.com/in/sungjun-kim-3301a63b8/" target="_blank" rel="noopener" class="sns-art" style="font-size:12px;border-radius:20px;padding:7px 18px;">LinkedIn ↗</a>
+    </div>
+    <p style="font-size:10.5px;color:#5b564c;letter-spacing:0.06em;">© KIM SUNG JUN</p>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroGradientIntensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.55,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero&quot;}}">
+const EXP_KEYS = ['expCaps','expExhibit','expTa','expCrowd','crsClaude','crsAicon','crsMedia23','crsNews','crsIt','crsYouth'];
+const INTRO_KEYS = ['intro1','intro2','intro3','intro4'];
+
+const PROJECTS = {
+  sagrada: {
+    title: "Sagrada Familia",
+    meta: "2024.08.26 – 2024.11.26 · Unreal Engine 5 · 3D Environment",
+    desc: "가우디의 미완공 건축물을 자료 조사와 창작 해석을 바탕으로 Unreal Engine 5에서 재구성한 환경 디자인 프로젝트입니다. 복잡한 건축 구조를 프랍 단위로 분리 제작해 게임 환경에 최적화했고, 현실 건축의 재질 표현과 미적 과장을 균형 있게 조합해 건축적 신뢰성과 예술적 분위기를 동시에 담았습니다.",
+    link: "https://www.artstation.com/artwork/XJGgkY", linkText: "ArtStation에서 보기",
+    link2: "https://youtu.be/jFLk0PH9vyE", linkText2: "YouTube에서 보기",
+    images: ["sagrada-main",{video:"jFLk0PH9vyE"},"sagrada-00","sagrada-01","sagrada-02","sagrada-03","sagrada-04","sagrada-05","sagrada-06","sagrada-07","sagrada-08","sagrada-09","sagrada-10","sagrada-ortho-before","sagrada-ortho","sagrada-wire","sagrada-prop"]
+  },
+  iron: {
+    title: "Iron Maiden",
+    meta: "2024.12.25 – 2025.03.14 · Unreal Engine 5 · Middle Age Prison Concept",
+    desc: "중세 감옥을 콘셉트로 한 실내 배경 작업입니다. 라이팅의 분위기 조성과 명암 대비에 집중했고, 머티리얼·아틀라스 작업으로 적은 텍스처 리소스에서 다양한 오브젝트를 구현했습니다.",
+    link: "https://www.artstation.com/artwork/a0Zx89", linkText: "ArtStation에서 보기",
+    link2: "https://youtu.be/DOoW01ySqxw", linkText2: "YouTube에서 보기",
+    images: ["iron-main",{video:"DOoW01ySqxw"},"iron-00","iron-01","iron-02","iron-03","iron-04","iron-05","iron-06","iron-07","iron-08","iron-before-01","iron-before-02","iron-before-03","iron-wire","iron-prop"]
+  },
+  mol: {
+    title: "M.O.L. (My Observation Log)",
+    meta: "2025.03.14 – 2025.06.04 · Team Project · Unreal Engine 5",
+    desc: "4인 팀 프로젝트에서 3D 배경 그래픽을 중심으로 배경 모델링·라이팅·머티리얼 세팅을 담당했습니다. 퍼포먼스와 몰입감을 동시에 고려했고, 소규모 팀 특성상 이펙트·파티클 작업까지 맡았습니다.",
+    link: "https://www.artstation.com/artwork/K355DX", linkText: "ArtStation에서 보기",
+    images: ["mol-blue-main","mol-blue-00","mol-blue-01","mol-blue-02","mol-blue-03","mol-blue-04","mol-blue-wire","mol-blue-prop","mol-orange-01","mol-orange-02","mol-orange-03","mol-orange-wire","mol-orange-prop"]
+  },
+  synapse: {
+    title: "SynapseLog",
+    meta: "Personal Project · Web · Vibe Coding",
+    desc: "노트를 마인드맵으로 시각화하는 개인 지식 신경망 도구입니다. 마크다운 문서의 계층 구조(#, ##, ###)를 실시간 분석해 신경망 형태의 그래프로 시각화하고, 노션 API를 연동해 별도 변환 없이 작성한 글이 자동으로 동기화됩니다. 페이지(.md) 단위를 넘어 마크다운 내부 구조까지 분석해 링크를 연결하며, 키워드를 검색하면 관련 노드가 함께 드러나는 탐색 시스템을 갖췄습니다. 팀 프로젝트에서 필요한 소스를 찾는 시간이 아깝다는 문제의식에서 출발해, 기획부터 프론트엔드까지 바이브 코딩으로 직접 구축했습니다.",
+    link: "https://vs-ta-va-synapselog-preset.vercel.app/", linkText: "사이트 열기",
+    link2: "https://github.com/kimsungjunvstava/vs_ta_va_synapselog_preset", linkText2: "GitHub",
+    grid: true,
+    images: ["synapse-01","synapse-02","synapse-03","synapse-04"]
+  },
+  media: {
+    title: "미디어센터 · 영상 편집",
+    meta: "2019.10 – 2021.02 · 대학 언론기구 · 영상 편집 기자",
+    desc: "대학 언론기구 미디어센터에서 영상 편집 기자로 활동하며 교내 인사·공무원·학생·연예인·노동자 등을 취재했습니다. 기획부터 촬영, 편집, 팀 협업까지 전 과정에 참여했고, Adobe Premiere Pro·After Effects로 영상을 편집하고 Photoshop으로 썸네일과 영상 소스를 제작했습니다. 이 과정에서 커뮤니케이션 능력과 콘텐츠 연출 감각을 키웠습니다.",
+    link: "https://www.youtube.com/@skhumediacenter", linkText: "채널 보기",
+    images: ["media-01","media-02","media-03"],
+    listTitle: "활동 영상",
+    list: [
+      {t:"에스쿠 (A:SKHU) 비하인드 영상‼️", u:"https://youtu.be/r_u9PVq5i7I"},
+      {t:"2019 학생대표자 선거 | '90초 스쿠터뉴스'", u:"https://youtu.be/djjg1Lip8TE"},
+      {t:"에스쿠 (A:SKHU) ep.07 '특별편'", u:"https://youtu.be/rQnKRunh3gI"},
+      {t:"2020-1 미디어센터 수습국원 모집 영상 | 어이 우리 영상을 봤나 HOXY~~??", u:"https://youtu.be/v7aJVjRGBoM"},
+      {t:"[팩트체크] 성공회대 통학로, 과연 안전할까? | 2020 미디어박스", u:"https://youtu.be/zicZK0yWxI8"},
+      {t:"2020 성공회대 학생사회가 궁금해!", u:"https://youtu.be/38CvMayjjH0"},
+      {t:"온라인개강 & 교내미화노동자 해고ㅣ'90초 스쿠터뉴스'", u:"https://youtu.be/WdiFXJSFv8I"},
+      {t:"😷코로나19로 내 삶이 이렇게 바뀌었다! 톡 어바웃 코로나 | '에스쿠 스튜디오'", u:"https://youtu.be/LQWJD3BkJdc"},
+      {t:"교내미화노동자 원직복직 & 진상조사위원회ㅣ'90초 스쿠터뉴스'", u:"https://youtu.be/SjnsQ734IwQ"},
+      {t:"📂편집기자가 아껴둔 촬영 비하인드 모음.ZIP 대방출 | 2020학년도 1학기 예능 비하인드컷", u:"https://youtu.be/6tQRaaC61BM"},
+      {t:"진상조사위원회, 소장 교체 결정ㅣ'90초 스쿠터뉴스'", u:"https://youtu.be/EvlMM0nBXzk"},
+      {t:"1학기 등록금 반환받을 수 있을까?ㅣ'90초 스쿠터뉴스'", u:"https://youtu.be/iH7YFc1abdk"},
+      {t:"2020 성공회대학교 학부대항 온라인 게임대회", u:"https://youtu.be/-g2terAOdvo"},
+      {t:"[Teaser] 우당탕탕 방구석 콘서트 티저 | 방구석 콘서트 of SKHU", u:"https://youtu.be/ngSu7_6GTI8"},
+      {t:"2020 성공회대학교 학부대항 온라인 게임대회 하이라이트 편집본", u:"https://youtu.be/bjPm3thF3_c"},
+      {t:"BIS의 [에잇 - 아이유 & 오늘 - 오왠] | 방구석 콘서트 of SKHU", u:"https://youtu.be/JUX8g-XmlHI"},
+      {t:"행복기숙사 천장에 비가 샌다? 😱 | 스낵뉴스", u:"https://youtu.be/iwev9YB65HI"},
+      {t:"매드클라운과 김뜻돌이 성공회대 온라인 축제에?!🙊 | 2020 스쿠대소동 현장 스케치", u:"https://youtu.be/RhAxnfBGtPU"},
+      {t:"성공회대 동문을 만나다 - 김뜻돌", u:"https://youtu.be/QksO9OwOq8I"},
+      {t:"성공회대 동문을 만나다 - 매드클라운", u:"https://youtu.be/ASIqobyVMBQ"},
+      {t:"성공회대 미디어센터 창립 35주년 축하 영상", u:"https://youtu.be/eUb8hg2tDPA"},
+      {t:"들어나 봤나 미디어센터 웹페이지 | 성공회대학교 미디어센터 웹페이지 홍보", u:"https://youtu.be/PzUbDRhoQaA"},
+      {t:"총장에게 무엇이든 물어보살", u:"https://youtu.be/1Ib_S658EIg"}
+    ]
+  },
+  iqvitamin: {
+    title: "아이맘 처방 동화 · IQ 비타민",
+    meta: "2021.09 – 2021.12 · 외주 · 2D 일러스트",
+    desc: "군 입대 전 아이큐비타민에서 단기 인턴으로 아동 도서 5권의 디자인과 발행에 참여했습니다. 포토샵과 일러스트레이터로 작업했지만, 제가 더 집중한 것은 결과물보다 작업 방식이었습니다.\n\n매주 금요일 열린 디자이너 회의에서 각자의 책이 따로 노는 것이 아니라 하나의 시리즈로 읽히도록, 서로의 세계관을 간접적으로 엮는 방향을 제안했습니다.\n\n또한 기존에는 디자인을 마친 뒤 텍스트 위치를 맞추는 방식이었는데, 이 경우 텍스트와 그림이 충돌해 수정이 반복되는 문제가 있었습니다. 이를 텍스트 위치를 먼저 잡고 디자인을 이어가는 순서로 바꾸자고 제안해, 이후의 수정을 줄이고 독자의 가독성을 먼저 고려하는 작업 체계를 만들었습니다.",
+    link: "https://www.iqvitamin.co.kr/shop_view/?idx=4", linkText: "출판된 동화책 보기",
+    grid: true,
+    images: ["iq-01","iq-02",{img:"iq-03",full:true}],
+    listTitle: "참여 도서",
+    list: [
+      {t:"거짓말 물방울이 점점 커져요", u:"https://product.kyobobook.co.kr/detail/S000211395933"},
+      {t:"푸리 손은 개구리 손", u:"https://product.kyobobook.co.kr/detail/S000211394049"},
+      {t:"외로운 생일파티", u:"https://product.kyobobook.co.kr/detail/S000211393754"},
+      {t:"자꾸 혼이 나요", u:"https://product.kyobobook.co.kr/detail/S000211390678"},
+      {t:"달려라 퐁카", u:"https://product.kyobobook.co.kr/detail/S000211390636"}
+    ]
+  }
+};
+
+function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+class Component extends DCLogic {
+  state = { activeProject: null };
+
+  renderVals() {
+    const vals = {};
+    EXP_KEYS.forEach(key => {
+      const open = !!this.state[key];
+      vals[key + 'Open'] = open;
+      vals[key + 'Icon'] = open ? '−' : '+';
+      vals['toggle' + cap(key)] = () => this.setState(s => ({ [key]: !s[key] }));
+    });
+
+    INTRO_KEYS.forEach(key => {
+      const open = !!this.state[key];
+      vals[key + 'Open'] = open;
+      vals[key + 'Icon'] = open ? '−' : '+';
+      vals['toggle' + cap(key)] = () => this.setState(s => ({ [key]: !s[key] }));
+    });
+
+    const intensity = this.props.heroGradientIntensity ?? 1;
+    vals.heroGradient = `linear-gradient(0deg,rgba(13,12,11,${intensity}) 0%,rgba(13,12,11,${(intensity*0.55).toFixed(2)}) 45%,rgba(13,12,11,0) 100%)`;
+
+    vals.openSagrada = () => this.setState({ activeProject: 'sagrada' });
+    vals.openIron = () => this.setState({ activeProject: 'iron' });
+    vals.openMol = () => this.setState({ activeProject: 'mol' });
+    vals.openSynapse = () => this.setState({ activeProject: 'synapse' });
+    vals.openMedia = () => this.setState({ activeProject: 'media' });
+    vals.openIq = () => this.setState({ activeProject: 'iqvitamin' });
+    vals.closeProject = () => this.setState({ activeProject: null });
+    vals.closeProjectBg = () => this.setState({ activeProject: null });
+    vals.stopClick = (e) => e.stopPropagation();
+
+    const p = this.state.activeProject ? PROJECTS[this.state.activeProject] : null;
+    vals.modalOpen = !!p;
+    vals.modalTitle = p ? p.title : '';
+    vals.modalMeta = p ? p.meta : '';
+    vals.modalDesc = p ? p.desc : '';
+    vals.modalLink = p ? p.link : '';
+    vals.modalLinkText = p ? p.linkText : '';
+    vals.modalHasLink2 = !!(p && p.link2);
+    vals.modalLink2 = p && p.link2 ? p.link2 : '';
+    vals.modalLink2Text = p && p.link2 ? p.linkText2 : '';
+    vals.modalImages = p ? p.images.map(item => {
+      if (typeof item === 'string') {
+        return { isImage: true, isVideo: false, src: 'assets/portfolio/' + item + '.jpg', cellStyle: '' };
+      }
+      if (item.video) {
+        return { isImage: false, isVideo: true, embedUrl: 'https://www.youtube.com/embed/' + item.video, cellStyle: '' };
+      }
+      // {img, full}: 이미지 + 그리드 전체 폭 span 옵션
+      return { isImage: true, isVideo: false, src: 'assets/portfolio/' + item.img + '.jpg', cellStyle: item.full ? 'grid-column:1/-1;' : '' };
+    }) : [];
+    vals.modalImagesStyle = (p && p.grid) ? 'display:grid;grid-template-columns:1fr 1fr;gap:1rem;' : 'display:flex;flex-direction:column;gap:1rem;';
+    vals.modalHasList = !!(p && p.list && p.list.length);
+    vals.modalListTitle = p && p.listTitle ? p.listTitle : '';
+    vals.modalList = p && p.list ? p.list.map(x => ({ title: x.t, url: x.u })) : [];
+
+    return vals;
+  }
+}
+</script>
+<script>
+/* 배경 영상 자동재생 보강 — support.js 가 영상을 나중에 렌더해도 muted 로 재생 강제 */
+(function () {
+  function playHero() {
+    document.querySelectorAll('video').forEach(function (v) {
+      v.muted = true; v.setAttribute('muted', '');
+      var p = v.play(); if (p && p.catch) p.catch(function () {});
+    });
+  }
+  var n = 0, t = setInterval(function () { playHero(); if (++n > 20) clearInterval(t); }, 800);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) playHero(); });
+})();
+</script>
+</body>
+</html>
